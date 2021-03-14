@@ -1,242 +1,297 @@
 @echo off
 color F0
 mode con cols=58 lines=30
-title=TWRPÒ»¼üÒÆÖ²¹¤¾ß:By:Coolapk@SKDushow
+title=TWRPä¸€é”®ç§»æ¤å·¥å…·:By:Coolapk@SKDushow
 :home
 echo Coolapk@SKDushow
-echo °æ±¾V2,ÕâÊÇµÚ¶ş¸ö°æ±¾
-echo TWRPÒ»¼üÒÆÖ²¹¤¾ß,½öÖ§³Ö¸ßÍ¨Áª·¢¿Æ
-echo Çë°ÑÄã»úĞÍµÄRECOVERYÃüÃûÎª¹Ù·½recovery.img
-echo °ÑÄãÒªÒÆÖ²µÄTWRPÃüÃûÎªÒÆÖ²recovery.img
-echo °ÑÕâÁ½¸öÎÄ¼ş·ÅÖÃµ½ÎÄ¼ş¸ùÄ¿Â¼
-echo È·±£Á½¸öTWRPÊÇÍ¬SOC
-echo ÊäÈë1£¬¿ªÊ¼×Ô¶¯ÒÆÖ²
-echo ÊäÈë2£¬¿ª»ú×´Ì¬Ë¢ÈëÒÆÖ²ºóµÄTWRP
-echo ÊäÈë3£¬fastboot×´Ì¬Ë¢ÈëÒÆÖ²ºóµÄTWRP
-echo ÊäÈë4£¬twrp²¿·ÖbugĞŞ¸´
-set /p twrp=ÊäÈëÊı×ÖÑ¡Ôñ¶ÔÓ¦µÄ²Ù×÷:
-if "%twrp%"=="1" goto auto_port
+echo ç‰ˆæœ¬V3,è¿™æ˜¯ç¬¬ä¸‰ä¸ªç‰ˆæœ¬
+echo TWRPä¸€é”®ç§»æ¤å·¥å…·,ä»…æ”¯æŒé«˜é€šè”å‘ç§‘
+echo è¯·æŠŠä½ æœºå‹çš„RECOVERYå‘½åä¸ºå®˜æ–¹recovery.img
+echo æŠŠä½ è¦ç§»æ¤çš„TWRP/OrangeFoxå‘½åä¸ºç§»æ¤recovery.img
+echo æŠŠè¿™ä¸¤ä¸ªæ–‡ä»¶æ”¾ç½®åˆ°æ–‡ä»¶æ ¹ç›®å½•
+echo ç¡®ä¿ä¸¤ä¸ªRECæ˜¯åŒSOC
+echo è¾“å…¥Tï¼Œå¼€å§‹è‡ªåŠ¨ç§»æ¤TWRP
+echo è¾“å…¥Oï¼Œå¼€å§‹è‡ªåŠ¨ç§»æ¤OrangeFoxRecovery
+echo è¾“å…¥2ï¼Œå¼€æœºçŠ¶æ€åˆ·å…¥ç§»æ¤åçš„TWRP
+echo è¾“å…¥3ï¼ŒfastbootçŠ¶æ€åˆ·å…¥ç§»æ¤åçš„TWRP
+echo è¾“å…¥4ï¼Œtwrpéƒ¨åˆ†bugä¿®å¤
+set /p twrp=è¾“å…¥æ•°å­—é€‰æ‹©å¯¹åº”çš„æ“ä½œ:
+if "%twrp%"=="T" goto auto_port_twrp
+if "%twrp%"=="O" goto auto_port_orange
 if "%twrp%"=="2" goto flash_power
 if "%twrp%"=="3" goto flash_fb
 if "%twrp%"=="4" goto twrp_fix
 goto home
 pause
-:auto_port
-if not exist ¹Ù·½recovery.img (echo.
-echo Î´·¢ÏÖ¹Ù·½recovery.img,¼´½«·µ»ØÖ÷²Ëµ¥
+:auto_port_twrp
+if not exist å®˜æ–¹recovery.img (echo.
+echo æœªå‘ç°å®˜æ–¹recovery.img,å³å°†è¿”å›ä¸»èœå•
 ping 127.0.0.1 -n 2 >NUL
 goto home
 ) 
-if exist ¹Ù·½recovery (rd /s /q ¹Ù·½recovery)
-echo ÕıÔÚ½â°ürecovery.img......
-md ¹Ù·½recovery
-copy ¹Ù·½recovery.img ¹Ù·½recovery\boot.img>NUL
-cd ¹Ù·½recovery
+if exist å®˜æ–¹recovery (rd /s /q å®˜æ–¹recovery)
+echo æ­£åœ¨è§£åŒ…recovery.img......
+md å®˜æ–¹recovery
+copy å®˜æ–¹recovery.img å®˜æ–¹recovery\boot.img>NUL
+cd å®˜æ–¹recovery
 ..\tools\bootimg.exe --unpack-bootimg
 cd ..
-if not exist ÒÆÖ²recovery.img (echo.
-echo Î´·¢ÏÖÒÆÖ²recovery.img,¼´½«·µ»ØÖ÷²Ëµ¥
+if not exist ç§»æ¤recovery.img (echo.
+echo æœªå‘ç°ç§»æ¤recovery.img,å³å°†è¿”å›ä¸»èœå•
 ping 127.0.0.1 -n 2 >NUL
 goto home
 ) 
-if exist ÒÆÖ²recovery (rd /s /q ÒÆÖ²recovery)
-echo ÕıÔÚ½â°ürecovery.img......
-md ÒÆÖ²recovery
-copy ÒÆÖ²recovery.img ÒÆÖ²recovery\boot.img>NUL
-cd ÒÆÖ²recovery
+if exist ç§»æ¤recovery (rd /s /q ç§»æ¤recovery)
+echo æ­£åœ¨è§£åŒ…recovery.img......
+md ç§»æ¤recovery
+copy ç§»æ¤recovery.img ç§»æ¤recovery\boot.img>NUL
+cd ç§»æ¤recovery
 ..\tools\bootimg.exe --unpack-bootimg
 cd ..
-del ÒÆÖ²recovery\kernel
-del ÒÆÖ²recovery\kernel.gz
-del ÒÆÖ²recovery\initrd\default.prop
-del ÒÆÖ²recovery\initrd\etc\recovery.fstab
-del ÒÆÖ²recovery\initrd\res\keys
-copy ¹Ù·½recovery\kernel ÒÆÖ²recovery
-copy ¹Ù·½recovery\kernel.gz ÒÆÖ²recovery
-copy ¹Ù·½recovery\initrd\default.prop ÒÆÖ²recovery\initrd\
-copy ¹Ù·½recovery\initrd\etc\recovery.fstab ÒÆÖ²recovery\initrd\etc\
-copy ¹Ù·½recovery\initrd\res\keys ÒÆÖ²recovery\initrd\res\
-cd ÒÆÖ²recovery
+del ç§»æ¤recovery\kernel
+del ç§»æ¤recovery\kernel.gz
+del ç§»æ¤recovery\initrd\default.prop
+del ç§»æ¤recovery\initrd\etc\recovery.fstab
+del ç§»æ¤recovery\initrd\res\keys
+copy å®˜æ–¹recovery\kernel ç§»æ¤recovery
+copy å®˜æ–¹recovery\kernel.gz ç§»æ¤recovery
+copy å®˜æ–¹recovery\initrd\default.prop ç§»æ¤recovery\initrd\
+copy å®˜æ–¹recovery\initrd\etc\recovery.fstab ç§»æ¤recovery\initrd\etc\
+copy å®˜æ–¹recovery\initrd\res\keys ç§»æ¤recovery\initrd\res\
+cd ç§»æ¤recovery
 ..\tools\bootimg.exe --repack-bootimg
 rename boot-new.img twrp.img
 cd ..
-copy ÒÆÖ²recovery\twrp.img ÒÆÖ²Íê³É
-copy ¹Ù·½recovery.img recovery±¸·İ
-copy ÒÆÖ²recovery.img recovery±¸·İ
-del ÒÆÖ²recovery.img
-del ¹Ù·½recovery.img
-rd/s/q ÒÆÖ²recovery
-rd/s/q ¹Ù·½recovery
-echo ÒÆÖ²Íê³É£¬ÒÆÖ²Íê³ÉÄ¿Â¼ÏÂÊÇÒÆÖ²ºÃµÄtwrp
-echo ±¸·İrecoveryÎÄ¼ş¼ĞÊÇ¸Õ²ÅÒÆÖ²Ç°RECµÄ±¸·İ
+copy ç§»æ¤recovery\twrp.img ç§»æ¤å®Œæˆ
+copy å®˜æ–¹recovery.img recoveryå¤‡ä»½
+copy ç§»æ¤recovery.img recoveryå¤‡ä»½
+del ç§»æ¤recovery.img
+del å®˜æ–¹recovery.img
+rd/s/q ç§»æ¤recovery
+rd/s/q å®˜æ–¹recovery
+echo ç§»æ¤å®Œæˆï¼Œç§»æ¤å®Œæˆç›®å½•ä¸‹æ˜¯ç§»æ¤å¥½çš„twrp
+echo å¤‡ä»½recoveryæ–‡ä»¶å¤¹æ˜¯åˆšæ‰ç§»æ¤å‰RECçš„å¤‡ä»½
+pause
+goto home
+
+:auto_port_orange
+if not exist å®˜æ–¹recovery.img (echo.
+echo æœªå‘ç°å®˜æ–¹recovery.img,å³å°†è¿”å›ä¸»èœå•
+ping 127.0.0.1 -n 2 >NUL
+goto home
+) 
+if exist å®˜æ–¹recovery (rd /s /q å®˜æ–¹recovery)
+echo æ­£åœ¨è§£åŒ…recovery.img......
+md å®˜æ–¹recovery
+copy å®˜æ–¹recovery.img å®˜æ–¹recovery\boot.img>NUL
+cd å®˜æ–¹recovery
+..\tools\bootimg.exe --unpack-bootimg
+cd ..
+if not exist ç§»æ¤recovery.img (echo.
+echo æœªå‘ç°ç§»æ¤recovery.img,å³å°†è¿”å›ä¸»èœå•
+ping 127.0.0.1 -n 2 >NUL
+goto home
+) 
+if exist ç§»æ¤recovery (rd /s /q ç§»æ¤recovery)
+echo æ­£åœ¨è§£åŒ…recovery.img......
+md ç§»æ¤recovery
+copy ç§»æ¤recovery.img ç§»æ¤recovery\boot.img>NUL
+cd ç§»æ¤recovery
+..\tools\bootimg.exe --unpack-bootimg
+cd ..
+del ç§»æ¤recovery\kernel
+del ç§»æ¤recovery\kernel.gz
+del ç§»æ¤recovery\initrd\default.prop
+del ç§»æ¤recovery\initrd\etc\recovery.fstab
+del ç§»æ¤recovery\initrd\res\keys
+del ç§»æ¤recovery\initrd\fstab.qcom
+copy å®˜æ–¹recovery\kernel ç§»æ¤recovery
+copy å®˜æ–¹recovery\kernel.gz ç§»æ¤recovery
+copy å®˜æ–¹recovery\initrd\default.prop ç§»æ¤recovery\initrd\
+copy å®˜æ–¹recovery\initrd\etc\recovery.fstab ç§»æ¤recovery\initrd\etc\
+copy å®˜æ–¹recovery\initrd\res\keys ç§»æ¤recovery\initrd\res\
+copy å®˜æ–¹recovery\initrd\fstab.qcom ç§»æ¤recovery\initrd\
+cd ç§»æ¤recovery
+..\tools\bootimg.exe --repack-bootimg
+rename boot-new.img Orangefox.img
+cd ..
+copy ç§»æ¤recovery\Orangefox.img ç§»æ¤å®Œæˆ
+copy å®˜æ–¹recovery.img recoveryå¤‡ä»½
+copy ç§»æ¤recovery.img recoveryå¤‡ä»½
+del ç§»æ¤recovery.img
+del å®˜æ–¹recovery.img
+rd/s/q ç§»æ¤recovery
+rd/s/q å®˜æ–¹recovery
+echo ç§»æ¤å®Œæˆï¼Œç§»æ¤å®Œæˆç›®å½•ä¸‹æ˜¯ç§»æ¤å¥½çš„Orangefox
+echo å¤‡ä»½recoveryæ–‡ä»¶å¤¹æ˜¯åˆšæ‰ç§»æ¤å‰RECçš„å¤‡ä»½
 pause
 goto home
 
 :flash_power
-echo ÇëÈ·±£Éè±¸ÒÑ¾­´ò¿ªUSBµ÷ÊÔ
+echo è¯·ç¡®ä¿è®¾å¤‡å·²ç»æ‰“å¼€USBè°ƒè¯•
 pause
-cd ÒÆÖ²Íê³É
+cd ç§»æ¤å®Œæˆ
 ..\tools\platform-tools\adb.exe reboot bootloader
 ..\tools\platform-tools\fastboot.exe flash recovery twrp.img
 ..\tools\platform-tools\fastboot.exe reboot
-echo ³É¹¦Ë¢Èë£¬ÕıÔÚ¿ª»ú£¬¿ª»úºó¿ÉÒÔ³¢ÊÔ½øÈëRECÀ´²âÊÔ
+echo æˆåŠŸåˆ·å…¥ï¼Œæ­£åœ¨å¼€æœºï¼Œå¼€æœºåå¯ä»¥å°è¯•è¿›å…¥RECæ¥æµ‹è¯•
 pause
 goto home
 
 :flash_fb
-echo ÇëÈ·±£Éè±¸ÒÑ¾­½øÈëFB
+echo è¯·ç¡®ä¿è®¾å¤‡å·²ç»è¿›å…¥FB
 pause
-cd ÒÆÖ²Íê³É
+cd ç§»æ¤å®Œæˆ
 ..\tools\platform-tools\fastboot.exe flash recovery twrp.img
 ..\tools\platform-tools\fastboot.exe reboot
-echo ³É¹¦Ë¢Èë£¬ÕıÔÚ¿ª»ú£¬¿ª»úºó¿ÉÒÔ³¢ÊÔ½øÈëRECÀ´²âÊÔ
+echo æˆåŠŸåˆ·å…¥ï¼Œæ­£åœ¨å¼€æœºï¼Œå¼€æœºåå¯ä»¥å°è¯•è¿›å…¥RECæ¥æµ‹è¯•
 pause
 goto home
 
 :twrp_fix
-echo Èç¹ûÄãµÄtwrpÃ»ÓĞÖÂÃübug
-echo ´Ë¹¦ÄÜÉ÷ÓÃ£¬¿ÉÄÜ»áµ¼ÖÂTWRPÎŞ·¨½øÈë
-echo ÔÚÇ°Ö®Ç°µÄÒÆÖ²¹ı³Ì£¬ÒÑ¾­¼¯³É²¿·ÖĞŞ¸´
-echo Çë°ÑÄã»úĞÍµÄRECOVERYÃüÃûÎª¹Ù·½recovery.img
-echo °ÑÄãÒÑ¾­ÒÆÖ²ºÃÒªĞŞ¸´µÄTWRPÃüÃûÎªÒÆÖ²recovery.img
-echo °ÑÕâÁ½¸öÎÄ¼ş·ÅÖÃµ½ÎÄ¼ş¸ùÄ¿Â¼
-echo ÊäÈëA£¬»Øµ½Ö÷½çÃæ
-echo ÊäÈëB£¬ĞŞ¸´MTP£¬¾ÍÊÇÓëµçÄÔÁ¬½Ó£¨¸ßÎ££©
-echo ÊäÈëC£¬ĞŞ¸´½øÈëTWRPºÚÆÁ£¨µÍÎ££©
-echo ÊäÈëD£¬ĞŞ¸´TWRP½âÃÜ¹¦ÄÜ£¬¿ÉÄÜÎŞĞ§£¨µÍÎ££©
-set /p twrp_fix=ÊäÈëÊı×ÖÑ¡Ôñ¶ÔÓ¦µÄ²Ù×÷:
+echo å¦‚æœä½ çš„twrpæ²¡æœ‰è‡´å‘½bug
+echo æ­¤åŠŸèƒ½æ…ç”¨ï¼Œå¯èƒ½ä¼šå¯¼è‡´TWRPæ— æ³•è¿›å…¥
+echo åœ¨å‰ä¹‹å‰çš„ç§»æ¤è¿‡ç¨‹ï¼Œå·²ç»é›†æˆéƒ¨åˆ†ä¿®å¤
+echo è¯·æŠŠä½ æœºå‹çš„RECOVERYå‘½åä¸ºå®˜æ–¹recovery.img
+echo æŠŠä½ å·²ç»ç§»æ¤å¥½è¦ä¿®å¤çš„TWRPå‘½åä¸ºç§»æ¤recovery.img
+echo æŠŠè¿™ä¸¤ä¸ªæ–‡ä»¶æ”¾ç½®åˆ°æ–‡ä»¶æ ¹ç›®å½•
+echo è¾“å…¥Aï¼Œå›åˆ°ä¸»ç•Œé¢
+echo è¾“å…¥Bï¼Œä¿®å¤MTPï¼Œå°±æ˜¯ä¸ç”µè„‘è¿æ¥ï¼ˆé«˜å±ï¼‰
+echo è¾“å…¥Cï¼Œä¿®å¤è¿›å…¥TWRPé»‘å±ï¼ˆä½å±ï¼‰
+echo è¾“å…¥Dï¼Œä¿®å¤TWRPè§£å¯†åŠŸèƒ½ï¼Œå¯èƒ½æ— æ•ˆï¼ˆä½å±ï¼‰
+set /p twrp_fix=è¾“å…¥æ•°å­—é€‰æ‹©å¯¹åº”çš„æ“ä½œ:
 if "%twrp_fix%"=="A" goto home
 if "%twrp_fix%"=="B" goto fix_mtp
 if "%twrp_fix%"=="C" goto fix_black
 if "%twrp_fix%"=="D" goto fix_unlock
 
 :fix_mtp
-echo ÕıÔÚĞŞ¸´MTP
-if not exist ¹Ù·½recovery.img (echo.
-echo Î´·¢ÏÖ¹Ù·½recovery.img,¼´½«·µ»ØÖ÷²Ëµ¥
+echo æ­£åœ¨ä¿®å¤MTP
+if not exist å®˜æ–¹recovery.img (echo.
+echo æœªå‘ç°å®˜æ–¹recovery.img,å³å°†è¿”å›ä¸»èœå•
 ping 127.0.0.1 -n 2 >NUL
 goto home
 ) 
 if exist MTP (rd /s /q MTP)
-echo ÕıÔÚ½â°ürecovery.img......
+echo æ­£åœ¨è§£åŒ…recovery.img......
 md MTP
-copy ¹Ù·½recovery.img MTP\boot.img>NUL
+copy å®˜æ–¹recovery.img MTP\boot.img>NUL
 cd MTP
 ..\tools\bootimg.exe --unpack-bootimg
 cd ..
-if not exist ÒÆÖ²recovery.img (echo.
-echo Î´·¢ÏÖÒÆÖ²recovery.img,¼´½«·µ»ØÖ÷²Ëµ¥
+if not exist ç§»æ¤recovery.img (echo.
+echo æœªå‘ç°ç§»æ¤recovery.img,å³å°†è¿”å›ä¸»èœå•
 ping 127.0.0.1 -n 2 >NUL
 goto home
 ) 
-if exist MTPĞŞ¸´ (rd /s /q MTPĞŞ¸´)
-echo ÕıÔÚ½â°ürecovery.img......
-md MTPĞŞ¸´
-copy ÒÆÖ²recovery.img MTPĞŞ¸´\boot.img>NUL
-cd MTPĞŞ¸´
+if exist MTPä¿®å¤ (rd /s /q MTPä¿®å¤)
+echo æ­£åœ¨è§£åŒ…recovery.img......
+md MTPä¿®å¤
+copy ç§»æ¤recovery.img MTPä¿®å¤\boot.img>NUL
+cd MTPä¿®å¤
 ..\tools\bootimg.exe --unpack-bootimg
 cd ..
-del MTPĞŞ¸´\initrd\init.recovery.usb.rc
-copy MTP\initrd\init.qcom.usb.sh MTPĞŞ¸´\initrd\init.recovery.usb.rc
-cd MTPĞŞ¸´
+del MTPä¿®å¤\initrd\init.recovery.usb.rc
+copy MTP\initrd\init.qcom.usb.sh MTPä¿®å¤\initrd\init.recovery.usb.rc
+cd MTPä¿®å¤
 ..\tools\bootimg.exe --repack-bootimg
 rename boot-new.img twrp.img
 cd ..
-copy MTPĞŞ¸´\twrp.img ÒÆÖ²Íê³É
-copy ¹Ù·½recovery.img recovery±¸·İ
-copy ÒÆÖ²recovery.img recovery±¸·İ
-del ÒÆÖ²recovery.img
+copy MTPä¿®å¤\twrp.img ç§»æ¤å®Œæˆ
+copy å®˜æ–¹recovery.img recoveryå¤‡ä»½
+copy ç§»æ¤recovery.img recoveryå¤‡ä»½
+del ç§»æ¤recovery.img
 
-del ¹Ù·½recovery.img
-rd/s/q MTPĞŞ¸´
+del å®˜æ–¹recovery.img
+rd/s/q MTPä¿®å¤
 rd/s/q MTP
-echo ĞŞ¸´Íê³É£¬ÒÆÖ²Íê³ÉÄ¿Â¼ÏÂÊÇĞŞ¸´ºÃµÄtwrp
-echo ±¸·İrecoveryÎÄ¼ş¼ĞÊÇ¸Õ²ÅÒÆÖ²Ç°RECµÄ±¸·İ
+echo ä¿®å¤å®Œæˆï¼Œç§»æ¤å®Œæˆç›®å½•ä¸‹æ˜¯ä¿®å¤å¥½çš„twrp
+echo å¤‡ä»½recoveryæ–‡ä»¶å¤¹æ˜¯åˆšæ‰ç§»æ¤å‰RECçš„å¤‡ä»½
 pause
 goto twrp_fix
 :fix_black
-echo ÕıÔÚĞŞ¸´ºÚÆÁ
-if not exist ¹Ù·½recovery.img (echo.
-echo Î´·¢ÏÖ¹Ù·½recovery.img,¼´½«·µ»ØÖ÷²Ëµ¥
+echo æ­£åœ¨ä¿®å¤é»‘å±
+if not exist å®˜æ–¹recovery.img (echo.
+echo æœªå‘ç°å®˜æ–¹recovery.img,å³å°†è¿”å›ä¸»èœå•
 ping 127.0.0.1 -n 2 >NUL
 goto home
 ) 
 if exist MTP (rd /s /q MTP)
-echo ÕıÔÚ½â°ürecovery.img......
+echo æ­£åœ¨è§£åŒ…recovery.img......
 md MTP
-copy ¹Ù·½recovery.img MTP\boot.img>NUL
+copy å®˜æ–¹recovery.img MTP\boot.img>NUL
 cd MTP
 ..\tools\bootimg.exe --unpack-bootimg
 cd ..
-if not exist ÒÆÖ²recovery.img (echo.
-echo Î´·¢ÏÖÒÆÖ²recovery.img,¼´½«·µ»ØÖ÷²Ëµ¥
+if not exist ç§»æ¤recovery.img (echo.
+echo æœªå‘ç°ç§»æ¤recovery.img,å³å°†è¿”å›ä¸»èœå•
 ping 127.0.0.1 -n 2 >NUL
 goto home
 ) 
-if exist MTPĞŞ¸´ (rd /s /q MTPĞŞ¸´)
-echo ÕıÔÚ½â°ürecovery.img......
-md MTPĞŞ¸´
-copy ÒÆÖ²recovery.img MTPĞŞ¸´\boot.img>NUL
-cd MTPĞŞ¸´
+if exist MTPä¿®å¤ (rd /s /q MTPä¿®å¤)
+echo æ­£åœ¨è§£åŒ…recovery.img......
+md MTPä¿®å¤
+copy ç§»æ¤recovery.img MTPä¿®å¤\boot.img>NUL
+cd MTPä¿®å¤
 ..\tools\bootimg.exe --unpack-bootimg
 cd ..
-del MTPĞŞ¸´\initrd\res\keys
-copy MTP\initrd\res\keys MTPĞŞ¸´\initrd\
-cd MTPĞŞ¸´
+del MTPä¿®å¤\initrd\res\keys
+copy MTP\initrd\res\keys MTPä¿®å¤\initrd\
+cd MTPä¿®å¤
 ..\tools\bootimg.exe --repack-bootimg
 rename boot-new.img twrp.img
 cd ..
-copy MTPĞŞ¸´\twrp.img ÒÆÖ²Íê³É
-copy ¹Ù·½recovery.img recovery±¸·İ
-copy ÒÆÖ²recovery.img recovery±¸·İ
-del ÒÆÖ²recovery.img
-del ¹Ù·½recovery.img
-rd/s/q MTPĞŞ¸´
+copy MTPä¿®å¤\twrp.img ç§»æ¤å®Œæˆ
+copy å®˜æ–¹recovery.img recoveryå¤‡ä»½
+copy ç§»æ¤recovery.img recoveryå¤‡ä»½
+del ç§»æ¤recovery.img
+del å®˜æ–¹recovery.img
+rd/s/q MTPä¿®å¤
 rd/s/q MTP
-echo ĞŞ¸´Íê³É£¬ÒÆÖ²Íê³ÉÄ¿Â¼ÏÂÊÇĞŞ¸´ºÃµÄtwrp
-echo ±¸·İrecoveryÎÄ¼ş¼ĞÊÇ¸Õ²ÅÒÆÖ²Ç°RECµÄ±¸·İ
+echo ä¿®å¤å®Œæˆï¼Œç§»æ¤å®Œæˆç›®å½•ä¸‹æ˜¯ä¿®å¤å¥½çš„twrp
+echo å¤‡ä»½recoveryæ–‡ä»¶å¤¹æ˜¯åˆšæ‰ç§»æ¤å‰RECçš„å¤‡ä»½
 pause
 goto twrp_fix
 :fix_unlock
-echo ÕıÔÚĞŞ¸´½âÃÜ
-if not exist ¹Ù·½recovery.img (echo.
-echo Î´·¢ÏÖ¹Ù·½recovery.img,¼´½«·µ»ØÖ÷²Ëµ¥
+echo æ­£åœ¨ä¿®å¤è§£å¯†
+if not exist å®˜æ–¹recovery.img (echo.
+echo æœªå‘ç°å®˜æ–¹recovery.img,å³å°†è¿”å›ä¸»èœå•
 ping 127.0.0.1 -n 2 >NUL
 goto home
 ) 
 if exist MTP (rd /s /q MTP)
-echo ÕıÔÚ½â°ürecovery.img......
+echo æ­£åœ¨è§£åŒ…recovery.img......
 md MTP
-copy ¹Ù·½recovery.img MTP\boot.img>NUL
+copy å®˜æ–¹recovery.img MTP\boot.img>NUL
 cd MTP
 ..\tools\bootimg.exe --unpack-bootimg
 cd ..
-if not exist ÒÆÖ²recovery.img (echo.
-echo Î´·¢ÏÖÒÆÖ²recovery.img,¼´½«·µ»ØÖ÷²Ëµ¥
+if not exist ç§»æ¤recovery.img (echo.
+echo æœªå‘ç°ç§»æ¤recovery.img,å³å°†è¿”å›ä¸»èœå•
 ping 127.0.0.1 -n 2 >NUL
 goto home
 ) 
-if exist MTPĞŞ¸´ (rd /s /q MTPĞŞ¸´)
-echo ÕıÔÚ½â°ürecovery.img......
-md MTPĞŞ¸´
-copy ÒÆÖ²recovery.img MTPĞŞ¸´\boot.img>NUL
-cd MTPĞŞ¸´
+if exist MTPä¿®å¤ (rd /s /q MTPä¿®å¤)
+echo æ­£åœ¨è§£åŒ…recovery.img......
+md MTPä¿®å¤
+copy ç§»æ¤recovery.img MTPä¿®å¤\boot.img>NUL
+cd MTPä¿®å¤
 ..\tools\bootimg.exe --unpack-bootimg
 cd ..
-del MTPĞŞ¸´\initrd\fstab.qcom
-copy MTP\initrd\fstab.qcom MTPĞŞ¸´\initrd\
-cd MTPĞŞ¸´
+del MTPä¿®å¤\initrd\fstab.qcom
+copy MTP\initrd\fstab.qcom MTPä¿®å¤\initrd\
+cd MTPä¿®å¤
 ..\tools\bootimg.exe --repack-bootimg
 rename boot-new.img twrp.img
 cd ..
-copy MTPĞŞ¸´\twrp.img ÒÆÖ²Íê³É
-copy ¹Ù·½recovery.img recovery±¸·İ
-copy ÒÆÖ²recovery.img recovery±¸·İ
-del ÒÆÖ²recovery.img
-del ¹Ù·½recovery.img
-rd/s/q MTPĞŞ¸´
+copy MTPä¿®å¤\twrp.img ç§»æ¤å®Œæˆ
+copy å®˜æ–¹recovery.img recoveryå¤‡ä»½
+copy ç§»æ¤recovery.img recoveryå¤‡ä»½
+del ç§»æ¤recovery.img
+del å®˜æ–¹recovery.img
+rd/s/q MTPä¿®å¤
 rd/s/q MTP
-echo ĞŞ¸´Íê³É£¬ÒÆÖ²Íê³ÉÄ¿Â¼ÏÂÊÇĞŞ¸´ºÃµÄtwrp
-echo ±¸·İrecoveryÎÄ¼ş¼ĞÊÇ¸Õ²ÅÒÆÖ²Ç°RECµÄ±¸·İ
+echo ä¿®å¤å®Œæˆï¼Œç§»æ¤å®Œæˆç›®å½•ä¸‹æ˜¯ä¿®å¤å¥½çš„twrp
+echo å¤‡ä»½recoveryæ–‡ä»¶å¤¹æ˜¯åˆšæ‰ç§»æ¤å‰RECçš„å¤‡ä»½
 pause
 goto twrp_fix
